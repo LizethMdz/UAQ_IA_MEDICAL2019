@@ -1,5 +1,9 @@
 <?php 
-  require_once('includes/load.php'); ?>
+  require_once('includes/load.php'); 
+  if (!$session->isUserLoggedIn(true)) { redirect('index.php', false);}
+
+  $user = current_user();
+  ?>
 
   <?php   
 
@@ -45,15 +49,15 @@
     
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
       <div class="container">
-        <a class="navbar-brand" href="index.php">MediCare.</a>
+        <a class="navbar-brand" href="home.php">MediCare.</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="oi oi-menu"></span> Menu
         </button>
 
         <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active"><a href="index.php" class="nav-link">Home</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">Acerca de</a></li>
+          <li class="nav-item active"><a href="home.php" class="nav-link">Inicio</a></li>
+          <li class="nav-item"><a href="acerca.php" class="nav-link">Acerca de</a></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle"  id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Diagnósticos</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
@@ -62,9 +66,19 @@
                 <a class="dropdown-item" href="diag-especifico.php">Diagnóstico Específico</a>
               </div>
           </li>
-          <li class="nav-item"><a href="blog.html" class="nav-link">Autores</a></li>
+          <li class="nav-item"><a href="autores.php" class="nav-link">Autores</a></li>
           <!-- <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li> -->
-          <li class="nav-item cta"><a href="contact.html" class="nav-link"><span>Empieza ya</span></a></li>
+          <!-- <li class="nav-item cta"><a href="contact.html" class="nav-link"><span>Empieza ya</span></a></li> -->
+          <?php  if ($session->isUserLoggedIn(true)): ?>  
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"  id="user-data" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             Dra. <?php echo utf8_encode(ucfirst($user['nom_medico'])); ?>
+            </a>
+              <div class="dropdown-menu" aria-labelledby="user-data">
+                <a class="dropdown-item" href="logout.php">Cerrrar Sesión</a>
+              </div>
+          </li>
+          <?php endif;?>
         </ul>
       </div>
       
@@ -78,7 +92,7 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
           <div class="col-md-6 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
-            <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.html">Home</a></span> <span class="mr-2"><a href="diag-general.php">Diagnóstico General</a></span></p>
+            <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="home.php">Inicio</a></span> <span class="mr-2"><a href="diag-general.php">Diagnóstico General</a></span></p>
             <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Diágnostico General</h1>
           </div>
         </div>

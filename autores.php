@@ -1,27 +1,17 @@
-  
-  
-  <?php 
-
+<?php
   require_once('includes/load.php');
   if (!$session->isUserLoggedIn(true)) { redirect('index.php', false);}
 
   $user = current_user();
-  ?>
-
-  
-
-  <?php   
-
-    $enfermedades =  join_illness_medication_table();
-
-  ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Diagnóstico Precargado</title>
+    <title>Sistema Experto</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
 
     <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
     <link rel="stylesheet" href="css/animate.css">
@@ -41,20 +31,19 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
     
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-      <div class="container">
-        <a class="navbar-brand" href="home.php">MediCare.</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="oi oi-menu"></span> Menu
-        </button>
+  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="index.php">MediCare.</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="oi oi-menu"></span> Menu
+      </button>
 
-        <div class="collapse navbar-collapse" id="ftco-nav">
+      <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active"><a href="home.php" class="nav-link">Inicio</a></li>
+          <li class="nav-item active"><a href="index.php" class="nav-link">Inicio</a></li>
           <li class="nav-item"><a href="acerca.php" class="nav-link">Acerca de</a></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle"  id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Diagnósticos</a>
@@ -65,8 +54,6 @@
               </div>
           </li>
           <li class="nav-item"><a href="autores.php" class="nav-link">Autores</a></li>
-          <!-- <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li> -->
-          <!-- <li class="nav-item cta"><a href="contact.html" class="nav-link"><span>Empieza ya</span></a></li> -->
           <?php  if ($session->isUserLoggedIn(true)): ?>  
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle"  id="user-data" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -79,67 +66,95 @@
           <?php endif;?>
         </ul>
       </div>
-      </div>
-    </nav>
+    </div>
+  </nav>
     <!-- END nav -->
     
+    <!-- <div class="js-fullheight"> -->
     <div class="hero-wrap js-fullheight">
       <div class="overlay"></div>
       <div id="particles-js"></div>
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
           <div class="col-md-6 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
-            <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="home.php">Inicio</a></span> <span>Diagnóstico Precargado</span></p>
-            <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Diagnóstico Precargado</h1>
+          <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="home.php">Inicio</a></span> <span>Autores</span></p>
+            <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Desarrollado <strong>por Estudiantes de la UAQ</strong></h1>
+            <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><a href="#autores" class="btn btn-primary btn-outline-white px-5 py-3">Seguir leyendo</a></p>
           </div>
         </div>
       </div>
     </div>
     
-    <section class="ftco-section">
+   
+
+    <section class="ftco-section testimony-section bg-light"  id="autores">
       <div class="container">
         <div class="row justify-content-center mb-5 pb-5">
-          <div class="col-md-6 text-center heading-section ftco-animate">
-            <span class="subheading">Enfermedades Gastrointestinales</span>
-            <h2 class="mb-4">Conócelas</h2>
-            <p>Las enfermedades gastrointestinales son todas aquellas patologías en las que está afectado
-               de alguna forma al sistema digestivo. Este grupo de patologías son frecuentes.
-               Dependiendo del tipo de enfermedad el tratamiento y la gravedad varían.</p>
+          <div class="col-md-7 text-center heading-section ftco-animate">
+            <span class="subheading">DESARROLLADORES</span>
+            <h2 class="mb-4">Brindando mejores servicios</h2>
+            <!-- NOTE Cambiar textos -->
+            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
           </div>
         </div>
-
-      <div class="album py-5">
-      <div class="container">
-      <div class="row">
-      <?php  foreach ($enfermedades as $enfermedad):  ?>
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm body" >
-            <figure class=" snip1104 blue">
-                  <img src="images/enfermedades/<?php echo remove_junk($enfermedad['imgenf']); ?>" class="bd-placeholder-img card-img-top">
-                    <figcaption>
-                    <p class="text-center pt-2"><?php echo remove_junk($enfermedad['nombenf']); ?></p> 
-                    </figcaption>
-                    
-            </figure>
-            <div class="card-body">
-              <div class="text-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-primary text-center"><a href="detalle-sint.php?id=<?php echo remove_junk($enfermedad['idenfermedades']); ?>">Ver más</a></button>
+        <div class="row ftco-animate">
+          <div class="col-md-12">
+            <div class="carousel-testimony owl-carousel ftco-owl">
+              <div class="item text-center">
+                <div class="testimony-wrap p-4 pb-5">
+                  <div class="user-img mb-4" style="background-image: url(images/person_1.jpg)">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-desktop"></i>
+                    </span>
+                  </div>
+                  <div class="text">
+                    <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                    <p class="name">Lizeth  Ailet Mendoza Trejo</p>
+                    <span class="position">Back-end Developer</span>
+                  </div>
                 </div>
               </div>
-            </div>      
-          </div> 
-
+              <div class="item text-center">
+                <div class="testimony-wrap p-4 pb-5">
+                  <div class="user-img mb-4" style="background-image: url(images/person_2.jpg)">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-desktop"></i>
+                    </span>
+                  </div>
+                  <div class="text">
+                    <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                    <p class="name">Hannia Melissa Flores Ornelas</p>
+                    <span class="position">Interface Designer</span>
+                  </div>
+                </div>
+              </div>
+              <div class="item text-center">
+                <div class="testimony-wrap p-4 pb-5">
+                  <div class="user-img mb-4" style="background-image: url(images/person_3.jpg)">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-desktop"></i>
+                    </span>
+                  </div>
+                  <div class="text">
+                    <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                    <p class="name">Ana Laura Peña Hernández</p>
+                    <span class="position">UI Designer</span>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
         </div>
-      <?php endforeach; ?>
-    </div>
       </div>
-
     </section>
-  
+    
+   
+
+   
 
     <footer class="ftco-footer ftco-bg-dark ftco-section">
-    <div class="container">
+      <div class="container">
         <div class="row mb-5">
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
@@ -151,8 +166,8 @@
             <div class="ftco-footer-widget mb-4 ml-5">
               <h2 class="ftco-heading-2">Enlaces</h2>
               <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">Diagnóstico Específico</a></li>
-                <li><a href="#" class="py-2 d-block">Diagnóstico General</a></li>
+                <li><a href="#" class="py-2 d-block">Home</a></li>
+                <li><a href="#" class="py-2 d-block">Diagnósticos</a></li>
                 <li><a href="#" class="py-2 d-block">Acerca de </a></li>
               </ul>
             </div>

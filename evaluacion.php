@@ -1,5 +1,9 @@
 <?php 
  require_once('includes/load.php'); 
+ if (!$session->isUserLoggedIn(true)) { redirect('index.php', false);}
+
+ $user = current_user();
+
 
 $puntuaciones = values_each_symptom_by_illness_table();
 $sintomas =  join_dictinct_symptoms_table();
@@ -95,7 +99,7 @@ $gradoCoincidencia = umbral_v2($interseccion_enf_arruser);
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Snipp - Free Bootstrap 4 Template by Colorlib</title>
+    <title>Evaluación</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -127,15 +131,15 @@ $gradoCoincidencia = umbral_v2($interseccion_enf_arruser);
     
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
       <div class="container">
-        <a class="navbar-brand" href="index.html">MediCare.</a>
+        <a class="navbar-brand" href="home.php">MediCare.</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="oi oi-menu"></span> Menu
         </button>
 
         <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active"><a href="index.php" class="nav-link">Home</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">Acerca de</a></li>
+          <li class="nav-item active"><a href="home.php" class="nav-link">Inicio</a></li>
+          <li class="nav-item"><a href="acerca.php" class="nav-link">Acerca de</a></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle"  id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Diagnósticos</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
@@ -144,9 +148,18 @@ $gradoCoincidencia = umbral_v2($interseccion_enf_arruser);
                 <a class="dropdown-item" href="diag-especifico.php">Diagnóstico Específico</a>
               </div>
           </li>
-          <li class="nav-item"><a href="blog.html" class="nav-link">Case Studies</a></li>
-          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-          <li class="nav-item cta"><a href="contact.html" class="nav-link"><span>Get in touch</span></a></li>
+          <li class="nav-item"><a href="autores.php" class="nav-link">Autores</a></li>
+          <!-- <li class="nav-item cta"><a href="contact.html" class="nav-link"><span>Get in touch</span></a></li> -->
+          <?php  if ($session->isUserLoggedIn(true)): ?>  
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"  id="user-data" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             Dra. <?php echo utf8_encode(ucfirst($user['nom_medico'])); ?>
+            </a>
+              <div class="dropdown-menu" aria-labelledby="user-data">
+                <a class="dropdown-item" href="logout.php">Cerrrar Sesión</a>
+              </div>
+          </li>
+          <?php endif;?>
         </ul>
       </div>
       </div>
@@ -159,7 +172,7 @@ $gradoCoincidencia = umbral_v2($interseccion_enf_arruser);
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
           <div class="col-md-6 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
-            <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.html">Home</a></span> <span>Evaluación</span></p>
+            <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="home.php">Inicio</a></span> <span>Evaluación</span></p>
             <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Evaluación</h1>
           </div>
         </div>
@@ -223,31 +236,28 @@ $gradoCoincidencia = umbral_v2($interseccion_enf_arruser);
         <div class="row mb-5">
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Snipp.</h2>
+              <h2 class="ftco-heading-2">MediCare.</h2>
               <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
             </div>
           </div>
           <div class="col-md">
             <div class="ftco-footer-widget mb-4 ml-5">
-              <h2 class="ftco-heading-2">Quick Links</h2>
+              <h2 class="ftco-heading-2">Enlaces</h2>
               <ul class="list-unstyled">
                 <li><a href="#" class="py-2 d-block">Home</a></li>
-                <li><a href="#" class="py-2 d-block">Case studies</a></li>
-                <li><a href="#" class="py-2 d-block">Services</a></li>
-                <li><a href="#" class="py-2 d-block">Portfolio</a></li>
-                <li><a href="#" class="py-2 d-block">About</a></li>
-                <li><a href="#" class="py-2 d-block">Contact</a></li>
+                <li><a href="#" class="py-2 d-block">Diagnósticos</a></li>
+                <li><a href="#" class="py-2 d-block">Acerca de </a></li>
               </ul>
             </div>
           </div>
           <div class="col-md">
              <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Contact Information</h2>
+              <h2 class="ftco-heading-2">Información de Contacto</h2>
               <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">198 West 21th Street, Suite 721 New York NY 10016</a></li>
+                <li><a href="#" class="py-2 d-block">Av. de las Ciencias S/N</a></li>
                 <li><a href="#" class="py-2 d-block">+ 1235 2355 98</a></li>
-                <li><a href="#" class="py-2 d-block">info@yoursite.com</a></li>
-                <li><a href="#" class="py-2 d-block">email@email.com</a></li>
+                <li><a href="#" class="py-2 d-block">http://www.uaq.mx/informatica</a></li>
+                <li><a href="#" class="py-2 d-block">visitanos@hotmail.com</a></li>
               </ul>
             </div>
           </div>
@@ -264,8 +274,8 @@ $gradoCoincidencia = umbral_v2($interseccion_enf_arruser);
         <div class="row">
           <div class="col-md-12 text-center">
 
-            
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This page is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="" target="_blank"> University' Students</a>
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
           </div>
         </div>

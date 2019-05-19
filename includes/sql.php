@@ -23,7 +23,7 @@ function find_by_id($table,$id)
   global $db;
   $id = (int)$id;
     if(tableExists($table)){
-          $sql = $db->query("SELECT * FROM {$db->escape($table)} WHERE id='{$db->escape($id)}' LIMIT 1");
+          $sql = $db->query("SELECT * FROM {$db->escape($table)} WHERE id_medico='{$db->escape($id)}' LIMIT 1");
           if($result = $db->fetch_assoc($sql))
             return $result;
           else
@@ -42,6 +42,44 @@ function find_by_id($table,$id)
     $result_set = $db->while_loop($result);
     return $result_set;
     }
+
+
+
+     /*--------------------------------------------------------------*/
+    /* Login with the data provided in $_POST,
+    /* coming from the login form.
+    /*--------------------------------------------------------------*/
+    function authenticate($username='', $password='') {
+        global $db;
+        $username = $db->escape($username);
+        $password = $db->escape($password);
+        $sql  = sprintf("SELECT id_medico,username_medico,pass_medico, nom_medico,status_medico FROM medicos WHERE username_medico ='%s' LIMIT 1", $username);
+        $result = $db->query($sql);
+        if($db->num_rows($result)){
+        $user = $db->fetch_assoc($result);
+        if($password === $user['pass_medico'] ){
+            return $user['id_medico'];
+        }
+        }
+    return false;
+    }
+
+
+ /*--------------------------------------------------------------*/
+  /* Find current log in user by session id
+  /*--------------------------------------------------------------*/
+  function current_user(){
+    static $current_user;
+    global $db;
+    if(!$current_user){
+       if(isset($_SESSION['user_id'])):
+           $user_id = intval($_SESSION['user_id']);
+           $current_user = find_by_id('medicos',$user_id);
+      endif;
+    }
+  return $current_user;
+}
+ 
 
 /*--------------------------------------------------------------*/
 /* Function for Count id  By table enfermedades
