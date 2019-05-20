@@ -113,9 +113,11 @@
             <ul class="list-group">
                 <li class="list-group-item active">Síntomas: </li>
                 <?php foreach ($enfermedades_sint_trat as $enfermedad_s_t): ?>
+                <?php if($enfermedad_s_t['valor'] > 0): ?>
                 <li class="list-group-item d-flex justify-content-between align-items-center"><?php echo remove_junk (utf8_encode($enfermedad_s_t['sintoma'])); ?>
                 <span class="badge badge-primary badge-pill text-white"><?php echo remove_junk($enfermedad_s_t['valor'] * 100); ?> %</span>
-                </li>
+                <?php endif; ?>
+              </li>
                 <?php endforeach; ?>
               </ul>
           
@@ -138,35 +140,32 @@
     
 
     <footer class="ftco-footer ftco-bg-dark ftco-section">
-      <div class="container">
+    <div class="container">
         <div class="row mb-5">
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Snipp.</h2>
+              <h2 class="ftco-heading-2">MediCare.</h2>
               <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
             </div>
           </div>
           <div class="col-md">
-             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Quick Links</h2>
+            <div class="ftco-footer-widget mb-4 ml-5">
+              <h2 class="ftco-heading-2">Enlaces</h2>
               <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">Home</a></li>
-                <li><a href="#" class="py-2 d-block">About</a></li>
-                <li><a href="#" class="py-2 d-block">Services</a></li>
-                <li><a href="#" class="py-2 d-block">Portfolio</a></li>
-                <li><a href="#" class="py-2 d-block">Contact</a></li>
-                <li><a href="#" class="py-2 d-block">Privacy</a></li>
+                <li><a href="#" class="py-2 d-block">Diagnóstico Específico</a></li>
+                <li><a href="#" class="py-2 d-block">Diagnóstico General</a></li>
+                <li><a href="#" class="py-2 d-block">Acerca de </a></li>
               </ul>
             </div>
           </div>
           <div class="col-md">
              <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Contact Information</h2>
+              <h2 class="ftco-heading-2">Información de Contacto</h2>
               <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">198 West 21th Street, Suite 721 New York NY 10016</a></li>
+                <li><a href="#" class="py-2 d-block">Av. de las Ciencias S/N</a></li>
                 <li><a href="#" class="py-2 d-block">+ 1235 2355 98</a></li>
-                <li><a href="#" class="py-2 d-block">info@yoursite.com</a></li>
-                <li><a href="#" class="py-2 d-block">email@email.com</a></li>
+                <li><a href="#" class="py-2 d-block">http://www.uaq.mx/informatica</a></li>
+                <li><a href="#" class="py-2 d-block">visitanos@hotmail.com</a></li>
               </ul>
             </div>
           </div>
@@ -184,7 +183,7 @@
           <div class="col-md-12 text-center">
 
             <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This page is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="" target="_blank"> University' Students</a>
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
           </div>
         </div>
@@ -213,7 +212,7 @@
   <script src="js/particles.min.js"></script>
   <script src="js/particle.js"></script>
   <script src="js/scrollax.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script> -->
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
     
