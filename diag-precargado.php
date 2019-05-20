@@ -115,9 +115,9 @@
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm body" >
             <figure class=" snip1104 blue">
-                  <img src="images/enfermedades/<?php echo remove_junk($enfermedad['imgenf']); ?>" class="bd-placeholder-img card-img-top">
+                  <img src="images/enfermedades/<?php echo  remove_junk($enfermedad['imgenf']); ?>" class="bd-placeholder-img card-img-top">
                     <figcaption>
-                    <p class="text-center pt-2"><?php echo remove_junk($enfermedad['nombenf']); ?></p> 
+                    <p class="text-center pt-2"><?php echo  remove_junk(utf8_encode($enfermedad['nombenf'])); ?></p> 
                     </figcaption>
                     
             </figure>
@@ -207,7 +207,7 @@
   <script src="js/aos.js"></script>
   <script src="js/jquery.animateNumber.min.js"></script>
   <script src="js/bootstrap-datepicker.js"></script>
-  <script src="js/jquery.timepicker.min.js"></script>
+  <!-- <script src="js/jquery.timepicker.min.js"></script> -->
   <script src="js/particles.min.js"></script>
   <script src="js/particle.js"></script>
   <script src="js/scrollax.min.js"></script>

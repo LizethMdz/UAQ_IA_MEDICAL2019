@@ -5,30 +5,29 @@ if (!$session->isUserLoggedIn(true)) { redirect('index.php', false);}
 
  $user = current_user();
 
- $puntuaciones = values_each_symptom_by_illness_table();
+$puntuaciones = values_each_symptom_by_illness_table();
 $sintomas =  join_dictinct_symptoms_table();
 
-$sintomasPaciente = $_GET['valSintomas'];
+$sintomasPaciente = $_POST['valSintomas'];
 
-// echo "<pre>";
-// var_dump($sintomasPaciente);
-// echo "</pre>";
 
 /**
  * Obtaining the punctuation of each
  *symptom in conjunction with your illness
-  NOTE  insertar las demás enfermedades
   
  */
 
-$a_enf = [APENDICITIS, COLITIS];
+$a_enf = [SALMONELOSIS, APENDICITIS, CANCERFGASTRICO, PARASITOSIS, DIARREA, DISPEPSIA, GASTRITIS, GASTROENTERITIS, INTOLACTOSA, CELIAQUIA];
+
+
+
 $a_patron = []; //Reacibe los valores de los patrones
 $a_div_patron = [];
 for ($i=0; $i < sizeof($a_enf) ; $i++) { 
     $clave = $a_enf[$i];
     foreach ($puntuaciones as $key ) {
         $valor = $key[$clave];
-        if( $valor < 1){
+        if( $valor <= 1){
             array_push($a_patron, $valor);
         }
     }
@@ -45,10 +44,6 @@ $salida = interseccion_v2($a_div_patron, $sintomasPaciente);
 
 $salida_div = array_chunk($salida, SINTOMAS + 1);
 
-
-// echo "<pre>";
-// var_dump($salida_div);
-// echo "</pre>";
 
 // Obtener los grados de confiabilidad de cada enfermedad
 $a_grados = [];
@@ -67,40 +62,9 @@ for ($m=0; $m < sizeof($salida_div); $m++) {
     }
 }
 
-// echo "<pre>";
-// var_dump($a_grados);
-// echo "</pre>";
 
 $resDiagnostico = Diagnostico($a_grados);
 $resEnfermedad = umbral($resDiagnostico);
-// if($resEnfermedad){
-//     $consultas =  join_illness_medication_name_table($resEnfermedad);
-//     echo "<table style='border: 1px solid #000;'>";
-//     foreach ($consultas as $key) {
-//         $nombre =  utf8_encode($key['nombenf']);
-//         $imagen = $key['imgenf'];
-//         $origen = utf8_encode($key['origenenf']);
-//         $trata = utf8_encode( $key['tratamiento']);
-
-//     echo "<tr>";
-
-//     echo "<td>". $nombre ."</td>";
-//     echo "<td>". $imagen."</td>";
-//     echo "<td>". $origen ."</td>";
-//     echo "<td>". $trata ."</td>";
-
-//     echo "</tr>";
-
-//     }
- 
-//     echo "</table>"; 
-
-// }
-
-
-// echo "<pre>";
-// var_dump($resDiagnostico);
-// echo "</pre>";
 
 
 ?>
@@ -158,7 +122,7 @@ $resEnfermedad = umbral($resDiagnostico);
               </div>
           </li>
           <li class="nav-item"><a href="autores.php" class="nav-link">Autores</a></li>
-          <!-- <li class="nav-item cta"><a href="contact.html" class="nav-link"><span>Get in touch</span></a></li> -->
+
           <?php  if ($session->isUserLoggedIn(true)): ?>  
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle"  id="user-data" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -175,7 +139,7 @@ $resEnfermedad = umbral($resDiagnostico);
     </nav>
 
     
-    <div class="hero-wrap js-fullheight">
+    <div class="hero-wrap js-fullheight" style="height:100%;">
       <div class="overlay"></div>
       <div id="particles-js"></div>
       <div class="container">
@@ -197,10 +161,10 @@ $resEnfermedad = umbral($resDiagnostico);
           </div>
         </div>
         <?php 
-        if($resEnfermedad){
+        if($resEnfermedad == $resDiagnostico[1]){
 
             $consultas =  join_illness_medication_name_table($resEnfermedad);
-            foreach ($consultas as $key) {
+            foreach ($consultas as $key) :
               $nombre =  utf8_encode($key['nombenf']);
               $imagen =  remove_junk($key['imgenf']);
               $origen = utf8_encode($key['origenenf']);
@@ -230,10 +194,37 @@ $resEnfermedad = umbral($resDiagnostico);
         </div>
 
         <?php  
-            }
+            endforeach;
 
-       }
-        ?>
+       }else{ ?>
+        <div class="row mt-3">
+          <div class="blog-slider">
+            <div class="blog-slider__wrp swiper-wrapper">
+              <div class="blog-slider__item swiper-slide">
+                <div class="blog-slider__img">
+                  
+                  <img src="https://image.flaticon.com/icons/svg/1658/1658294.svg" alt="">
+                </div>
+                <div class="blog-slider__content">
+                <span class="blog-slider__code"><?php echo "Fecha: " . date("d") . " del " . date("m") . " de " . date("Y"); ?></span>
+
+                  <div class="blog-slider__text"><?php 
+                   echo "Lo siento :/ El grado de confiabilidad entre los sintomas elegidos y los valores
+                   de las enfermedades que fueron comparados no fue suficiente como
+                   para decir que posees alguna de ellas."; ?></div>
+
+                  <a href="#" class="blog-slider__button">VOLVER AL INICIO</a>
+                </div>
+              </div>
+            
+              
+            </div>
+            <div class="blog-slider__pagination"></div>
+          </div>
+      </div>
+    <?php  }
+      ?>
+        
 
       </div>
     </section>

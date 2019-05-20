@@ -10,14 +10,23 @@
 
      
      /**Define Variables Generales */
-    define("SINTOMAS", 9);
+    define("SINTOMAS", 38); ///9
     define( "PORCENTAJE" , 100);
     define('CANT_COL_T_ENFER', 4);
-    define('UMBRAL', 1);
-    define('UMB', 2);
+    define('UMBRAL', 2); //1
+    define('UMB', 3.5); //2
 
      /**Define Enfermedades */
+    define('SALMONELOSIS', 'Salmonelosis');
     define('APENDICITIS', 'Apendicitis');
-    define('COLITIS', 'Colitis Ulcerosa');
+    define('CANCERFGASTRICO', 'Cancer Gastrico');
+    define('PARASITOSIS', 'Parasitosis');
+    define('DIARREA','Diarrea');
+    define('DISPEPSIA', 'Dispepsia');
+    define('GASTRITIS', 'Gastritis');
+    define('GASTROENTERITIS', 'Gastroenteritis');
+    define('INTOLACTOSA', 'Intolerancia a la lactosa');
+    define('CELIAQUIA', 'Intolerancia al Gluten');
+    // define('COLITIS', 'Colitis Ulcerosa');
 
 ?>

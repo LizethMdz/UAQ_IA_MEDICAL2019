@@ -118,7 +118,7 @@
                 <?php foreach ($sintomas2 as $sintoma2): ?>
 
                   <li class="list-group-item d-flex justify-content-between align-items-center sinto mt-3">
-                    <p><?php echo remove_junk($sintoma2['nombsintoma']); ?></p>
+                    <p><?php echo $sintoma2['idsintomas']; ?>, <?php echo remove_junk(utf8_encode($sintoma2['nombsintoma'])); ?></p>
                   </li>
                   <?php endforeach; ?>
             </ul>
@@ -131,7 +131,7 @@
       <?php $a_names_radiobtn = []; ?>
         <div class="col-md-8 pr-md-5">
             <ul class="list-group list-group-flush">
-            <form method="GET" action="evaluacion_p.php">
+            <form method="POST" action="evaluacion_p.php">
                 <li class="list-group-item active text-center">¿Cómo te sientes? </li>
                
 

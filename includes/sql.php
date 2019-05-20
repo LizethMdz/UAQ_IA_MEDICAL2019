@@ -232,7 +232,7 @@ function count_by_id_sintomas($table){
 
   function join_dictinct_symptoms_table(){
     global $db;
-    $sql  =" SELECT DISTINCT ";
+    $sql  =" SELECT DISTINCT s.idsintomas,";
     $sql  .=" s.nombsintoma, ehs.id_enf_sint ";
     $sql  .=" FROM enfermedades_has_sintomas ehs ";
     $sql  .=" LEFT JOIN sintomas s ON s.idsintomas = ehs.sintomas_idsintomas";
@@ -250,7 +250,7 @@ function count_by_id_sintomas($table){
 
 function join_dictinct_symptoms_table2(){
     global $db;
-    $sql  =" SELECT DISTINCT ";
+    $sql  =" SELECT DISTINCT s.idsintomas,";
     $sql  .=" s.nombsintoma, ehs.id_enf_sint ";
     $sql  .=" FROM enfermedades_has_sintomas ehs ";
     $sql  .=" LEFT JOIN sintomas s ON s.idsintomas = ehs.sintomas_idsintomas";
@@ -285,15 +285,56 @@ function values_each_symptom_by_illness_table(){
     global $db;
     $sql  =" SELECT s.nombsintoma,
 				max(case 
+				WHEN e.nombenf = 'Salmonelosis'
+                then ehs.valor
+                ELSE 0
+                END) as 'Salmonelosis',
+                max(case 
 				WHEN e.nombenf = 'Apendicitis'
                 then ehs.valor
                 ELSE 0
                 END) as 'Apendicitis',
                 max(case 
-				WHEN e.nombenf = 'Colitis Ulcerosa'
+				WHEN e.nombenf = 'Cancer Gastrico'
                 then ehs.valor
                 ELSE 0
-                END) as 'Colitis Ulcerosa' ";
+                END) as 'Cancer Gastrico',
+                max(case 
+				WHEN e.nombenf = 'Parasitosis'
+                then ehs.valor
+                ELSE 0
+                END) as 'Parasitosis',
+                max(case 
+				WHEN e.nombenf = 'Diarrea'
+                then ehs.valor
+                ELSE 0
+                END) as 'Diarrea',
+                max(case 
+				WHEN e.nombenf = 'Dispepsia'
+                then ehs.valor
+                ELSE 0
+                END) as 'Dispepsia',
+                max(case 
+				WHEN e.nombenf = 'Gastritis'
+                then ehs.valor
+                ELSE 0
+                END) as 'Gastritis',
+                max(case 
+				WHEN e.nombenf = 'Gastroenteritis'
+                then ehs.valor
+                ELSE 0
+                END) as 'Gastroenteritis',
+                max(case 
+				WHEN e.nombenf = 'Intolerancia a la lactosa'
+                then ehs.valor
+                ELSE 0
+                END) as 'Intolerancia a la lactosa',
+                max(case 
+				WHEN e.nombenf = 'Intolerancia al Gluten'
+                then ehs.valor
+                ELSE 0
+                END) as 'Intolerancia al Gluten'
+                ";
     $sql  .=" FROM enfermedades_has_sintomas ehs ";
     $sql  .=" LEFT JOIN sintomas s ON s.idsintomas = ehs.sintomas_idsintomas ";
     $sql  .=" LEFT JOIN enfermedades e ON e.idenfermedades = ehs.enfermedades_idenfermedades ";

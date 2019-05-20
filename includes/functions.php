@@ -179,9 +179,9 @@ function display_msg($msg =''){
 
     function interseccion_v2($a_div_patron, $user_){
         $salida_operacion = [];
-        for ($i=0; $i < sizeof($a_div_patron); $i++) { 
+        for ($i=0; $i < sizeof($a_div_patron); $i++) {  //10
             $gradoC = 0;
-            for ($j=0; $j < sizeof($user_); $j++) { 
+            for ($j=0; $j < sizeof($user_); $j++) {  //38
                 if ($a_div_patron[$i][$j] <= $user_[$j]) {
                     $temp = $a_div_patron[$i][$j];
                     array_push($salida_operacion, $temp);
@@ -253,20 +253,27 @@ function display_msg($msg =''){
 
     function umbral($arr){
         $enf_diagnosticada = $arr[1];
+        $enf_comprobada = "";
         if($arr[0] >= UMBRAL){
-            return $enf_diagnosticada;
+            $enf_comprobada = $enf_diagnosticada;
         }else{
-            return false;
+            $enf_comprobada = "no coincide";;
         }
+
+        return $enf_comprobada;
     }
 
     function umbral_v2($arr){
-        $enf_diagnosticada = $arr[sizeof($arr) - 1 ];
+        $tama= sizeof($arr);
+        $enf_diagnosticada = $arr[$tama - 1 ];
+        $enf_comprobada = "";
         if($enf_diagnosticada >= UMB){
-            return true;
+            $enf_comprobada = "coincide";
         }else{
-            return false;
+            $enf_comprobada = "no coincide";
         }
+        return $enf_comprobada;
+
       }
 
 

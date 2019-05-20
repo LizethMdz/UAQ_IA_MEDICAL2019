@@ -114,14 +114,14 @@
           </div>
         </div>
 
-        <form method="GET" action="evaluacion.php">
+        <form method="POST" action="evaluacion.php">
         <div class="row">
             <div class="col-md-3 pr-md-4 ">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item active text-center">¿Qué sintomas presentas? </li>
                     <?php foreach ($sintomas2 as $sintoma2): ?>
                       <li class="list-group-item d-flex justify-content-between align-items-center sinto mt-3">
-                        <p><?php echo remove_junk($sintoma2['nombsintoma']); ?></p>
+                        <p><?php echo remove_junk(utf8_encode($sintoma2['nombsintoma'])); ?></p>
                       </li>
                       <?php endforeach; ?>
                 </ul>

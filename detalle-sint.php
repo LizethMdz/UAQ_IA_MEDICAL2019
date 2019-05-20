@@ -86,7 +86,7 @@
           <div class="col-md-6 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
             <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="home.php">Inicio</a></span> <span>DETALLE</span></p>
             <?php foreach ($enfermedades as $enfermedad): ?>
-            <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><?php echo remove_junk($enfermedad['nombenf']); ?></h1>
+            <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><?php echo  utf8_encode($enfermedad['nombenf']); ?></h1>
             <?php endforeach; ?>
           </div>
         </div>
@@ -98,7 +98,7 @@
         <div class="row mb-4">
           <?php foreach ($enfermedades as $enfermedad): ?>
           <div class="col-md-12 mb-4">
-            <h2 class="h1"><?php echo remove_junk($enfermedad['nombenf']); ?></h2>
+            <h2 class="h1"><?php echo  remove_junk(utf8_encode($enfermedad['nombenf'])); ?></h2>
           </div>
           <div class="w-100"></div>
           <div class="col-md-12">
@@ -113,7 +113,7 @@
             <ul class="list-group">
                 <li class="list-group-item active">Síntomas: </li>
                 <?php foreach ($enfermedades_sint_trat as $enfermedad_s_t): ?>
-                <li class="list-group-item d-flex justify-content-between align-items-center"><?php echo remove_junk($enfermedad_s_t['sintoma']); ?>
+                <li class="list-group-item d-flex justify-content-between align-items-center"><?php echo remove_junk (utf8_encode($enfermedad_s_t['sintoma'])); ?>
                 <span class="badge badge-primary badge-pill text-white"><?php echo remove_junk($enfermedad_s_t['valor'] * 100); ?> %</span>
                 </li>
                 <?php endforeach; ?>
@@ -209,7 +209,7 @@
   <script src="js/aos.js"></script>
   <script src="js/jquery.animateNumber.min.js"></script>
   <script src="js/bootstrap-datepicker.js"></script>
-  <script src="js/jquery.timepicker.min.js"></script>
+  <!-- <script src="js/jquery.timepicker.min.js"></script> -->
   <script src="js/particles.min.js"></script>
   <script src="js/particle.js"></script>
   <script src="js/scrollax.min.js"></script>
