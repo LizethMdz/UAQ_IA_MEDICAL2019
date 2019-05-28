@@ -44,7 +44,7 @@
 </div>
 
 <script>
-            var cta = document.querySelector(".cta");
+        var cta = document.querySelector(".cta");
         var check = 0;
 
         cta.addEventListener('click', function(e){

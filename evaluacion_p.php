@@ -36,6 +36,11 @@ for ($i=0; $i < sizeof($a_enf) ; $i++) {
 // Un vector que contiene todos los patrones de sintomas por enfermedad 
 $a_div_patron = array_chunk($a_patron, SINTOMAS);
 
+/** TODO  Realiza Intersección de las enfermedades elegidas
+ * con el patron del usuario
+ */
+
+
 //Efectua la operacion
 $salida = interseccion_v2($a_div_patron, $sintomasPaciente);
 
@@ -62,7 +67,7 @@ for ($m=0; $m < sizeof($salida_div); $m++) {
     }
 }
 
-
+/** Diagnóstico Final */
 $resDiagnostico = Diagnostico($a_grados);
 $resEnfermedad = umbral($resDiagnostico);
 
@@ -112,7 +117,7 @@ $resEnfermedad = umbral($resDiagnostico);
         <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active"><a href="home.php" class="nav-link">Inicio</a></li>
-          <li class="nav-item"><a href="acerca.php" class="nav-link">Acerca de</a></li>
+          
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle"  id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Diagnósticos</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
@@ -121,6 +126,7 @@ $resEnfermedad = umbral($resDiagnostico);
                 <a class="dropdown-item" href="diag-especifico.php">Diagnóstico Específico</a>
               </div>
           </li>
+          <li class="nav-item"><a href="acerca.php" class="nav-link">Acerca de</a></li>
           <li class="nav-item"><a href="autores.php" class="nav-link">Autores</a></li>
 
           <?php  if ($session->isUserLoggedIn(true)): ?>  
@@ -129,6 +135,7 @@ $resEnfermedad = umbral($resDiagnostico);
              Dra. <?php echo utf8_encode(ucfirst($user['nom_medico'])); ?>
             </a>
               <div class="dropdown-menu" aria-labelledby="user-data">
+              <a class="dropdown-item" href="perfil.php">Mi perfil</a>
                 <a class="dropdown-item" href="logout.php">Cerrrar Sesión</a>
               </div>
           </li>
@@ -145,7 +152,7 @@ $resEnfermedad = umbral($resDiagnostico);
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
           <div class="col-md-6 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
-            <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="home.php">Inicio</a></span> <span>Evaluación</span></p>
+            <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="home.php">Inicio</a></span> <span>Evaluación Diagnóstico General</span></p>
             <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Evaluación</h1>
           </div>
         </div>
@@ -154,10 +161,12 @@ $resEnfermedad = umbral($resDiagnostico);
     
     <section class="ftco-section">
       <div class="container">
-        <div class="row no-gutters justify-content-center mb-5 pb-5">
+        <div class="row no-gutters justify-content-center mb-1">
         <div class="col-md-6 text-center heading-section ftco-animate">
             <span class="subheading">Enfermedades Gastrointestinales</span>
-            <h2 class="mb-4">Tus resultados fueron</h2>
+            <h2 class="mb-2">Tus resultados fueron</h2>
+            <p>La mejor mejor coincidencia ....</p>
+            <img src="https://image.flaticon.com/icons/svg/1420/1420243.svg" width="100" height="100">
           </div>
         </div>
         <?php 
@@ -236,7 +245,8 @@ $resEnfermedad = umbral($resDiagnostico);
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2">MediCare.</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+              <p>Universidad Autónoma de Querétaro.</p>
+              <p>Facultad de Informática.</p>
             </div>
           </div>
           <div class="col-md">
@@ -296,11 +306,10 @@ $resEnfermedad = umbral($resDiagnostico);
   <script src="js/aos.js"></script>
   <script src="js/jquery.animateNumber.min.js"></script>
   <script src="js/bootstrap-datepicker.js"></script>
-  <script src="js/jquery.timepicker.min.js"></script>
+  <!-- <script src="js/jquery.timepicker.min.js"></script> -->
   <script src="js/particles.min.js"></script>
   <script src="js/particle.js"></script>
   <script src="js/scrollax.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
 

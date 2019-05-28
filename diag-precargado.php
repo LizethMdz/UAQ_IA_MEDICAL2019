@@ -55,7 +55,7 @@
         <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active"><a href="home.php" class="nav-link">Inicio</a></li>
-          <li class="nav-item"><a href="acerca.php" class="nav-link">Acerca de</a></li>
+          
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle"  id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Diagnósticos</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
@@ -64,6 +64,7 @@
                 <a class="dropdown-item" href="diag-especifico.php">Diagnóstico Específico</a>
               </div>
           </li>
+          <li class="nav-item"><a href="acerca.php" class="nav-link">Acerca de</a></li>
           <li class="nav-item"><a href="autores.php" class="nav-link">Autores</a></li>
           <!-- <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li> -->
           <!-- <li class="nav-item cta"><a href="contact.html" class="nav-link"><span>Empieza ya</span></a></li> -->
@@ -73,6 +74,7 @@
              Dra. <?php echo utf8_encode(ucfirst($user['nom_medico'])); ?>
             </a>
               <div class="dropdown-menu" aria-labelledby="user-data">
+              <a class="dropdown-item" href="perfil.php">Mi perfil</a>
                 <a class="dropdown-item" href="logout.php">Cerrrar Sesión</a>
               </div>
           </li>
@@ -144,7 +146,8 @@
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2">MediCare.</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+              <p>Universidad Autónoma de Querétaro.</p>
+              <p>Facultad de Informática.</p>
             </div>
           </div>
           <div class="col-md">

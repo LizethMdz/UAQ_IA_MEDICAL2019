@@ -12,6 +12,13 @@
     /** Retorna cada sintoma ordenado alfabeticamente */
     $sintomas2 =  join_dictinct_symptoms_table2();
 
+    $img_sintomas = ['acidezest.png','ansiedad.png','apetito.png','deshidratacion.png', 'diarrea.png',
+    'cabeza.png', 'recto.png', 'eructos.png', 'escalo.png', 'estre.png', 'fapetito.png', 'fsueno.png',
+    'fatiga.png', 'fiebre.png', 'flatu.png', 'abdomen.png', 'indis.png', 'insom.png', 'alimen.png', 
+    'irrit.png', 'boca.png', 'humedas.png', 'mareos.png', 'molestias.png', 'nauseas.png', 'palidez.png',
+    'peso.png', 'picazon.png', 'pulso.png', 'retor.png', 'precoz.png', 'sangre.png', 'pesadez.png', 'saciedad.png',
+    'sudoracion.png', 'tosseca.png', 'vomi.png', 'vomisangre.png'];
+
   ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,7 +64,7 @@
         <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active"><a href="home.php" class="nav-link">Inicio</a></li>
-          <li class="nav-item"><a href="acerca.php" class="nav-link">Acerca de</a></li>
+          
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle"  id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Diagnósticos</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
@@ -66,6 +73,7 @@
                 <a class="dropdown-item" href="diag-especifico.php">Diagnóstico Específico</a>
               </div>
           </li>
+          <li class="nav-item"><a href="acerca.php" class="nav-link">Acerca de</a></li>
           <li class="nav-item"><a href="autores.php" class="nav-link">Autores</a></li>
           <!-- <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li> -->
           <!-- <li class="nav-item cta"><a href="contact.html" class="nav-link"><span>Empieza ya</span></a></li> -->
@@ -75,6 +83,7 @@
              Dra. <?php echo utf8_encode(ucfirst($user['nom_medico'])); ?>
             </a>
               <div class="dropdown-menu" aria-labelledby="user-data">
+              <a class="dropdown-item" href="perfil.php">Mi perfil</a>
                 <a class="dropdown-item" href="logout.php">Cerrrar Sesión</a>
               </div>
           </li>
@@ -106,8 +115,8 @@
         <div class="row justify-content-center mb-5 pb-5">
           <div class="col-md-6 text-center heading-section ftco-animate">
             <span class="subheading">EVALUACIÓN</span>
-            <h2 class="mb-4">Selecciona los sintomás que padezcas</h2>
-            <p>Selecciona como te sientes</p>
+            <h2 class="mb-4">Selecciona los sintomás del paciente</h2>
+            
           </div>
         </div>
         <div class="row">
@@ -115,12 +124,14 @@
         <div class="col-md-4 item-name ">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item active text-center">¿Qué sintomas presentas? </li>
-                <?php foreach ($sintomas2 as $sintoma2): ?>
+                <!-- REVIEW CONTINUAR EL ALGORITMO -->
+                  <?php for($i=0; $i < sizeof($img_sintomas); $i++){ ?>
 
-                  <li class="list-group-item d-flex justify-content-between align-items-center sinto mt-3">
-                    <p><?php echo $sintoma2['idsintomas']; ?>, <?php echo remove_junk(utf8_encode($sintoma2['nombsintoma'])); ?></p>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                   <img class="img-responsive" style="width:100%; height:166.5px; width:165px;" src="images/icons/<?php echo $img_sintomas[$i]; ?>" alt="">
                   </li>
-                  <?php endforeach; ?>
+                  <!-- <?php //endforeach; ?> -->
+                  <?php } ?>
             </ul>
         </div>
 
@@ -136,22 +147,25 @@
                
 
                 <div class="row">
-                  <?php foreach ($sintomas as $sintoma): ?>
+                 
                  <ul class="list-group-flush">
+                    <?php foreach ($sintomas2 as $sintoma2): ?>
                      <li class="list-group-item range-btn  align-items-center mt-2">
                      <div class="col-md-12 icons-health">
+                        <p><?php echo remove_junk(utf8_encode($sintoma2['nombsintoma'])); ?></p>     
                         <img class="img-feelings" src="https://image.flaticon.com/icons/svg/1742/1742336.svg" alt="">
                         <img class="img-feelings" src="https://image.flaticon.com/icons/svg/1742/1742375.svg" alt="">
                         <img class="img-feelings" src="https://image.flaticon.com/icons/svg/1742/1742464.svg" alt="">
                         <img class="img-feelings" src="https://image.flaticon.com/icons/svg/1742/1742491.svg" alt="">
                         
                       </div>
-                          <label for="range" class="ml-5 mt-1 text-center">
-                                <input type="range" name="valSintomas[]" id="range" min="0" max="1" step="0.01" value="0" onchange="cambiar(this.value, <?php echo $sintoma['id_enf_sint'];?>)" oninput="cambiar(this.value, <?php echo $sintoma['id_enf_sint'];?>)"><h4 class="text-center txt-range"  id="<?php echo $sintoma['id_enf_sint'];?>">0%</h4>
+                          <label for="range" class="ml-5 mt-2 text-center">
+                                <input type="range" name="valSintomas[]" id="range" min="0" max="1" step="0.01" value="0" onchange="cambiar(this.value, <?php echo $sintoma2['id_enf_sint'];?>)" oninput="cambiar(this.value, <?php echo $sintoma2['id_enf_sint'];?>)"><h4 class="text-center txt-range"  id="<?php echo $sintoma2['id_enf_sint'];?>">0%</h4>
                           </label>
                      </li>
+                      <?php endforeach; ?>
                  </ul>                
-                 <?php endforeach; ?>
+              
                   </div>
 
                 <li class="list-group-item text-center">
@@ -180,7 +194,8 @@
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2">MediCare.</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+              <p>Universidad Autónoma de Querétaro.</p>
+              <p>Facultad de Informática.</p>
             </div>
           </div>
           <div class="col-md">
@@ -260,53 +275,6 @@ function cambiar(rango, h){
         //alert(rango);
         document.getElementById(h).innerHTML = Math.round((rango*100) * 100) / 100  + "%";
 }
-
-//   var n = 'choice';
-//   var name =<?php echo json_encode($a_names_radiobtn);  ?> ;
-
-//   $(function() {
-
-//         $("#btnValidar").click(function() {
-//           var sinto = new Array();
-//           for(a = 0; a < name.length; a++){
-//             var f = n.concat(name[a]);
-//             //console.log("input[name='"+f+" ']");
-//             if (typeof a !== 'undefined'){
-              
-//               if(!$("input[name='"+ f + "']").is(':checked')){
-//                   //alert('Asegurate que todos los campos esten marcados');
-//                 }else{
-//                   var sal = $("input[name='"+ f + "']:checked").val();
-//                   sinto.push(sal);
-//                   alert(sinto);
-//                 }
-//             }
-
-//             //console.log(sinto);
-
-
-//           }
-
-//          // console.log(sint);
-
-//           $.ajax({
-//               type: "GET",
-//                   url: "evaluacion_p.php",
-//                   data: {
-//                     sintomas: sinto
-//                   },//capturo array     
-//                   success: function(data){
-//                     //console.log(data);
-//                   },
-//                   error: function(data) {
-//                     alert('error');
-//                   }
-//               });
-
-
-//         });
-
-// });
 
   </script>
 

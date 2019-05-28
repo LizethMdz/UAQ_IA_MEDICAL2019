@@ -11,8 +11,8 @@ $sintomas =  join_dictinct_symptoms_table();
 /**
  * Array obtained from the user's GET 
  * */
-$sintomasPaciente = $_GET['valSintomas'];
-$enferEvaluar = $_GET['disease'];
+$sintomasPaciente = $_POST['valSintomas'];
+$enferEvaluar = $_POST['disease'];
 
 
 echo "<pre>";
@@ -46,58 +46,69 @@ for ($i=0; $i < sizeof($enferEvaluar) ; $i++) {
 //A vector that contains all the symptom patterns for sickness
 $a_div_patron = array_chunk($a_patron, SINTOMAS);
 
-/** TODO  Realiza la Union entre las enfermedades 
- *  echo "[ Pos: " . $i . "," . $j ." - ". $patron_div[$i] [$j] . "]"; */
-
-$columnas = sizeof($sintomasPaciente);
-$filas = sizeof($a_div_patron);
-
-$aux=0;
-$mayor = $a_div_patron[0][0];
-$union_enfer = [];
-
-for ($s = 0; $s < $columnas; $s++){ //Recorre 9
-    $aux = 0;
-    for ($u=0; $u < $filas ; $u++) {  //Recorre 2
-        //echo "[ Pos: " . $a_div_patron[$u] [$s] . "]" ;
-        if($a_div_patron[$u][$s] >=  $aux){
-          
-            $mayor = $a_div_patron[$u][$s];
-            $aux = $mayor;
-
-            }
-        }
-        array_push($union_enfer,$aux);
-       // echo $aux;
-       // echo "<br>";
-}
 
 echo "<pre>";
-var_dump($union_enfer);
+var_dump($a_div_patron);
 echo "</pre>";
 echo "<br>";
 
+/** TODO  Realiza la Union entre las enfermedades 
+ *  echo "[ Pos: " . $i . "," . $j ." - ". $patron_div[$i] [$j] . "]"; */
 
-/** TODO Se realiza la intersección del los sintomas del usuario en conjunto con 
- * la union de las enfermedades
- */
+//Efectua la operacion
+$interseccion_enf_arruser = interseccion_v2($a_div_patron, $sintomasPaciente);
 
-$interseccion_enf_arruser = interseccion($sintomasPaciente, $union_enfer);
+//Array final incluye la salida de la interseccion más el grado de confiabilidad
+// por enfermedad
+
+$interseccion_e_u_div = array_chunk($interseccion_enf_arruser, SINTOMAS + 1);
+
+
+// Obtener los grados de confiabilidad de cada enfermedad
+$a_grados = [];
+
+for ($m=0; $m < sizeof($interseccion_e_u_div); $m++) { 
+
+    for ($h=0; $h < SINTOMAS + 1 ; $h++) { 
+        
+        if ( $m == $m and $h == SINTOMAS) {
+        
+            $temp = $interseccion_e_u_div[$m][$h];
+            array_push($a_grados, $temp, $enferEvaluar[$m]);
+            
+        }
+
+    }
+}
+
+/** Diagnóstico Final */
+$resDiagnostico = Diagnostico($a_grados);
+$gradoCoincidencia = umbral_v2($resDiagnostico);
+
+
 
 echo "<pre>";
 var_dump($interseccion_enf_arruser);
 echo "</pre>";
 echo "<br>";
-$enf_comprobada = umbral_v2($interseccion_enf_arruser);
+
+echo "<pre>";
+var_dump($a_grados);
+echo "</pre>";
+echo "<br>";
+
+echo $gradoCoincidencia;
+
+echo "<br>";
 
 
 
 /** Diagnóstico Final */
 
-  if($enf_comprobada == "coincide"){
-    for ($i=0; $i <sizeof($enferEvaluar) ; $i++) { 
+  if($gradoCoincidencia == $resDiagnostico[1]){
+  
 
-        $consultas =  join_illness_medication_name_table($enferEvaluar[$i]);
+        $consultas =  join_illness_medication_name_table($gradoCoincidencia);
         foreach ($consultas as $key) {
           $nombre =  utf8_encode($key['nombenf']);
           $imagen =  remove_junk($key['imgenf']);
@@ -111,7 +122,7 @@ $enf_comprobada = umbral_v2($interseccion_enf_arruser);
           echo "<br>";
     
         }
-    }
+    
   }else{
       echo "Lo siento :/ El grado de confiabilidad entre los sintomas elegidos y los valores
       de las enfermedades que fueron comparados no fue suficiente como

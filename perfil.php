@@ -5,6 +5,84 @@
   $user = current_user();
 ?>
 
+<?php
+  $user_id = (int)$_GET['id'];
+  if(empty($user_id)):
+    redirect('home.php',false);
+  else:
+    $user_p = find_by_id('medicos',$user_id);
+  endif;
+?>
+
+<?php 
+
+    if(isset($_POST['enviar'])){
+
+        $req_fields = array('c-new','c-old','id' );
+        validate_fields($req_fields);
+
+        if($_POST['c-old'] !== current_user()['pass_medico'] ){
+        $session->msg('d', "Tu antigua contraseña no coincide");
+        redirect("perfil.php?id=1", false);
+        }
+
+        if(empty($errors)){
+
+
+                $id = (int)$_POST['id'];
+                $new = remove_junk($db->escape($_POST['c-new']));
+                $sql = "UPDATE medicos SET pass_medico ='{$new}' WHERE id_medico='{$db->escape($id)}'";
+                $result = $db->query($sql);
+                    if($result && $db->affected_rows() === 1):
+                    $session->logout();
+                    $session->msg('s',"Inicia sesión con tu nueva contraseña.");
+                    redirect('index.php', false);
+                    else:
+                    $session->msg('d',' Lo siento, actualización falló.');
+                    redirect('perfil.php?id=1', false);
+                    endif;
+        } else {
+            $session->msg("d", $errors);
+            redirect('perfil.php?id=1',false);
+        }
+    }
+?>
+
+
+<?php
+ //update user other info
+  if(isset($_POST['save'])){
+    $req_fields = array('username','name', 'phone', 'especial');
+    validate_fields($req_fields);
+
+    // if($_POST['c-old'] !== current_user()['pass_medico'] ){
+    //     $session->msg('d', "Tu antigua contraseña no coincide");
+    //     redirect('perfil.php', false);
+    // }
+
+    if(empty($errors)){
+        $id = (int)$_SESSION['user_id'];
+        $name = remove_junk($db->escape($_POST['name']));
+        $username = remove_junk($db->escape($_POST['username']));
+        $tel = remove_junk($db->escape($_POST['phone']));
+        $espe = remove_junk($db->escape($_POST['especial']));
+        // $new = remove_junk($db->escape($_POST['c-new']));
+            $sql = "UPDATE medicos SET nom_medico ='{$name}', username_medico ='{$username}', tel_medico ='{$tel}', titulo_medico ='{$espe}' WHERE id_medico='{$id}'";
+        $result = $db->query($sql);
+          if($result && $db->affected_rows() === 1){
+            $session->msg('s',"Cuenta actualizada. ");
+            redirect('perfil.php?id=1', false);
+          } else {
+            $session->msg('d',' Lo siento, actualización falló.');
+            redirect('perfil.php?id=1', false);
+          }
+    } else {
+      $session->msg("d", $errors);
+      redirect('perfil.php?id=1',false);
+    }
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -80,119 +158,87 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
           <div class="col-md-6 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
-          <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="home.php">Inicio</a></span> <span>Acerca de</span></p>
-            <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Información <strong>fue consultda de</strong></h1>
-            <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><a href="#investigacion" class="btn btn-primary btn-outline-white px-5 py-3">Seguir leyendo</a></p>
+          <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="home.php">Inicio</a></span> <span>Perfil</span></p>
+            <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Tu Perfil <strong></strong></h1>
+            <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><a href="#perfil" class="btn btn-primary btn-outline-white px-5 py-3">Configurar</a></p>
           </div>
         </div>
       </div>
     </div>
-    
+
+
+
+
+    <section class="ftco-section contact-section ftco-degree-bg" id="perfil">
+      <div class="container bg-light">
+
    
+        <div class="row block-9">
 
-    <section class="ftco-section testimony-section bg-light"  id="investigacion">
-      <div class="container">
-        <div class="row justify-content-center mb-5 pb-5">
-          <div class="col-md-7 text-center heading-section ftco-animate">
-            <span class="subheading">FUENTES PARA LA INVESTIGACIÓN</span>
-            <h2 class="mb-4">Se tomaron en cuenta varias referencias</h2>
-            <p>Desde una supervición de las enfermedades y síntomas por parte
-              de la doctora que actualmente está en la Facultad de Informática. Así
-              como, la consulta en páginas informativas para este tipo de enfermedades.
-            </p>
+          <div class="col-md-12 mb-4">
+            <?php echo display_msg($msg); ?>
           </div>
-        </div>
-        <div class="row ftco-animate">
-          <div class="col-md-4">
-                <div class='card-wrapper'>
-                    <div class='card-info' data-toggle-class='flipped'>
-                        <div class='card-front'>
-                        <div class='layer'>
-                            <h1 class="text-white">Consulta No. 1</h1>
-                            <div class='corner'></div>
-                            <div class='corner'></div>
-                            <div class='corner'></div>
-                            <div class='corner'></div>
-                        </div>
-                        </div>
-                        <div class='card-back'>
-                        <div class='layer'>
-                            <div class='top'>
-                            <h2>Dr. </h2>
-                            </div>
-                            <div class='bottom'>
-                            <h3>
-                                Teléfono:
-                                <a href='#'>+44 7542 20 33 83</a>
-                            </h3>
-                            <h3>
-                                Email:
-                                <a href='#'>lmenus@lmen.us</a>
-                            </h3>
-                            <h3>
-                                Escuela:
-                                <a href='https://www.uaq.mx/' target='_blank'>Univerdidad Autónoma de Querétaro</a>
-                            </h3>
-                            <h3>
-                                Facultad:
-                                <a href='#' target='_blank'>Facultad de Informática</a>
-                            </h3>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-          </div>
-          <div class="col-md-4">
 
-            <div class="card text-white bg-primary mb-3" style="max-width: 30rem;">
+          <div class="col-md-6 pr-md-5">
+            <form method="post" action="perfil.php?id=<?php echo (int)$user_p['id_medico'];?>">
+              <div class="form-group">
+                  <p>Nombre de Usuario</p>
+                <input type="text" class="form-control" name="username" value="<?php echo remove_junk($user_p['username_medico']); ?>">
+              </div>
+              <div class="form-group">
+                <p>Nombre</p>
+                <input type="text" class="form-control" name="name" value="<?php echo remove_junk(utf8_encode(ucwords($user_p['nom_medico']))); ?>">
+              </div>
+
+              <div class="form-group">
+                <p>Teléfono</p>
+                <input type="text" class="form-control" name="phone" value="<?php echo remove_junk(utf8_encode(ucwords($user_p['tel_medico']))); ?>">
+              </div>
+
+              <div class="form-group">
+                <p>Especialidad</p>
+                <input type="text" class="form-control" name="especial" value="<?php echo remove_junk(utf8_encode(ucwords($user_p['titulo_medico']))); ?>">
+              </div>
+
+              <div class="form-group">
+                <input type="submit" value="Modificar" name="save" class="btn btn-primary py-3 px-5">
+              </div>
+
+            </form>
+             
             
-                <div class="card-header">Consulta No. 2</div>
-                <div class="card bg-light px-3 py-3">
-                <img src="https://i.onmeda.de/nav/logo-es.png" class="card-img-top" alt="onmeda">
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Onmeda.es</h5>
-                    <p class="card-text">
-                    El portal de salud Onmeda fue creado en Alemania en 1997 (entonces todavía con el nombre Medicine Worldwide)
-                     por médicos del Hospital Charité de Berlín y científicos del Instituto Max Planck. 
-                     En la actualidad Onmeda es una de las webs de información de salud líderes de Alemania. 
-                     Las altas exigencias de calidad y nuestra oferta de textos médicos en Internet son la razón por la que Onmeda tiene una gran 
-                    aceptación entre los pacientes, las personas que se interesan por la salud, los médicos y los periodistas.    
-                </p>
-                    <a class="text-white" href="https://www.onmeda.es/enfermedades_gastrointestinales/patologias.html">Enlace</a>
-                </div>
-            </div>
-
-          </div>
-
-          <div class="col-md-4">
-
-            <div class="card text-white bg-primary mb-3" style="max-width: 30rem;">
            
-                <div class="card-header">Consulta No. 3</div>
-                <div class="card bg-light px-3 py-3">
-                 <img src="https://medlineplus.gov/images/m_logo_sp.png" class="card-img-top" alt="medlineplus">
-                 </div>
-                <div class="card-body">
-                    <h5 class="card-title">MedlinePlus</h5>
-                    <p class="card-text">MedlinePlus en español es el sitio web de los Institutos Nacionales de la 
-                        Salud para pacientes, familiares y amigos. Producida por la Biblioteca Nacional de Medicina de los
-                         Estados Unidos, la biblioteca médica más grande del mundo, 
-                        MedlinePlus le brinda información sobre enfermedades, afecciones y bienestar en un lenguaje fácil de leer.</p>
-                    <a href="https://medlineplus.gov/spanish/ency/article/007447.htm" class="text-white">Enlace</a>
-                </div>
-            </div>
-
+          
           </div>
+         
+          <div class="col-md-6">
+           <form method="post" action="perfil.php?id=<?php echo (int)$user_p['id_medico'];?>">
+              <div class="form-group">
+                <p>Contraseña Actual</p>
+                <input type="text" class="form-control" name="c-old" placeholder="Contraseña">
+              </div>
+
+              <div class="form-group">
+                <p>Contraseña Nueva</p>
+                <input type="text" class="form-control" name="c-new" placeholder="Nueva Contraseña">
+              </div>
+
+              <input type="hidden" name="id" value="<?php echo (int)$user['id_medico'];?>">
+             
+              <div class="form-group">
+                <input type="submit" value="Modificar" name="enviar" class="btn btn-primary py-3 px-5">
+              </div>
+            </form>
+          </div>
+        
+          
         </div>
       </div>
     </section>
     
-   
 
    
-
+   
     <footer class="ftco-footer ftco-bg-dark ftco-section">
       <div class="container">
         <div class="row mb-5">
@@ -274,3 +320,4 @@
     
   </body>
 </html>
+

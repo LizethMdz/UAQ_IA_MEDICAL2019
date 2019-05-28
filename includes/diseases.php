@@ -14,7 +14,7 @@
     define( "PORCENTAJE" , 100);
     define('CANT_COL_T_ENFER', 4);
     define('UMBRAL', 2); 
-    define('UMB', 3.5); 
+    define('UMB', 3); 
 
      /**Define Enfermedades */
     define('SALMONELOSIS', 'Salmonelosis');

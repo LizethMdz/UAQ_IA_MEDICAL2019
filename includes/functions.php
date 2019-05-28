@@ -251,26 +251,30 @@ function display_msg($msg =''){
         
     }
 
+    /**VERSION 1  UMBRAL */
+
     function umbral($arr){
         $enf_diagnosticada = $arr[1];
         $enf_comprobada = "";
         if($arr[0] >= UMBRAL){
             $enf_comprobada = $enf_diagnosticada;
         }else{
-            $enf_comprobada = "no coincide";;
+            $enf_comprobada = "No coincide";;
         }
 
         return $enf_comprobada;
     }
 
+    /**VERSION 2  UMBRAL */
+
     function umbral_v2($arr){
-        $tama= sizeof($arr);
-        $enf_diagnosticada = $arr[$tama - 1 ];
+        
+        $enf_diagnosticada = $arr[1];
         $enf_comprobada = "";
-        if($enf_diagnosticada >= UMB){
-            $enf_comprobada = "coincide";
+        if($arr[0] >= UMB){
+            $enf_comprobada = $enf_diagnosticada;
         }else{
-            $enf_comprobada = "no coincide";
+            $enf_comprobada = "No coincide";
         }
         return $enf_comprobada;
 

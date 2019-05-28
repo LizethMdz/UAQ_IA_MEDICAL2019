@@ -36,41 +36,41 @@ for ($i=0; $i < sizeof($enferEvaluar) ; $i++) {
 //A vector that contains all the symptom patterns for sickness
 $a_div_patron = array_chunk($a_patron, SINTOMAS);
 
-/** TODO  Realiza Intersección de las enfermedades elegidas
- * con el patron del usuario
- */
-
-//Efectua la operacion
-$interseccion_enf_arruser = interseccion_v2($a_div_patron, $sintomasPaciente);
-
-//Array final incluye la salida de la interseccion más el grado de confiabilidad
-// por enfermedad
-
-$interseccion_e_u_div = array_chunk($interseccion_enf_arruser, SINTOMAS + 1);
+/** TODO  Realiza la Union entre las enfermedades */
 
 
-// Obtener los grados de confiabilidad de cada enfermedad
-$a_grados = [];
+$columnas = sizeof($sintomasPaciente);
+$filas = sizeof($a_div_patron);
 
-for ($m=0; $m < sizeof($interseccion_e_u_div); $m++) { 
+$aux=0;
+$mayor = $a_div_patron[0][0];
+$union_enfer = [];
 
-    for ($h=0; $h < SINTOMAS + 1 ; $h++) { 
-        
-        if ( $m == $m and $h == SINTOMAS) {
-        
-            $temp = $interseccion_e_u_div[$m][$h];
-            array_push($a_grados, $temp, $enferEvaluar[$m]);
-            
+for ($s = 0; $s < $columnas; $s++){ //Recorre 38
+    $aux = 0;
+    for ($u=0; $u < $filas ; $u++) {  //Recorre 10
+
+        if($a_div_patron[$u][$s] >=  $aux){
+          
+            $mayor = $a_div_patron[$u][$s];
+            $aux = $mayor;
+            }
         }
+        array_push($union_enfer,$aux);
 
-    }
 }
 
+
+
+/** TODO Se realiza la intersección del los sintomas del usuario en conjunto con 
+ * la union de las enfermedades
+ */
+
+$interseccion_enf_arruser = interseccion($sintomasPaciente, $union_enfer);
+
+$gradoCoincidencia = umbral_v2($interseccion_enf_arruser);
+
 /** Diagnóstico Final */
-$resDiagnostico = Diagnostico($a_grados);
-$gradoCoincidencia = umbral_v2($resDiagnostico);
-
-
 
  ?>
 
@@ -118,6 +118,7 @@ $gradoCoincidencia = umbral_v2($resDiagnostico);
         <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active"><a href="home.php" class="nav-link">Inicio</a></li>
+          <li class="nav-item"><a href="acerca.php" class="nav-link">Acerca de</a></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle"  id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Diagnósticos</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
@@ -126,15 +127,14 @@ $gradoCoincidencia = umbral_v2($resDiagnostico);
                 <a class="dropdown-item" href="diag-especifico.php">Diagnóstico Específico</a>
               </div>
           </li>
-          <li class="nav-item"><a href="acerca.php" class="nav-link">Acerca de</a></li>
           <li class="nav-item"><a href="autores.php" class="nav-link">Autores</a></li>
+          <!-- <li class="nav-item cta"><a href="contact.html" class="nav-link"><span>Get in touch</span></a></li> -->
           <?php  if ($session->isUserLoggedIn(true)): ?>  
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle"  id="user-data" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
              Dra. <?php echo utf8_encode(ucfirst($user['nom_medico'])); ?>
             </a>
               <div class="dropdown-menu" aria-labelledby="user-data">
-              <a class="dropdown-item" href="perfil.php">Mi perfil</a>
                 <a class="dropdown-item" href="logout.php">Cerrrar Sesión</a>
               </div>
           </li>
@@ -151,7 +151,7 @@ $gradoCoincidencia = umbral_v2($resDiagnostico);
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
           <div class="col-md-6 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
-            <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="home.php">Inicio</a></span> <span>Evaluación Diagnóstico Específico</span></p>
+            <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="home.php">Inicio</a></span> <span>Evaluación</span></p>
             <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Evaluación</h1>
           </div>
         </div>
@@ -160,25 +160,24 @@ $gradoCoincidencia = umbral_v2($resDiagnostico);
     
     <section class="ftco-section">
       <div class="container">
-        <div class="row no-gutters justify-content-center mb-1">
+        <div class="row no-gutters justify-content-center mb-5 pb-5">
         <div class="col-md-6 text-center heading-section ftco-animate">
             <span class="subheading">Enfermedades Gastrointestinales</span>
-            <h2 class="mb-2">Tus resultados fueron</h2>
-            <p>La mejor mejor coincidencia ....</p>
-            <img src="https://image.flaticon.com/icons/svg/1420/1420243.svg" width="100" height="100">
+            <h2 class="mb-4">Tus resultados fueron</h2>
           </div>
         </div>
         <?php 
-       if($gradoCoincidencia == $resDiagnostico[1]){
-      
-            $consultas =  join_illness_medication_name_table($gradoCoincidencia);
+       if($gradoCoincidencia == "coincide"){
+           for ($i=0; $i <sizeof($enferEvaluar) ; $i++) { 
+
+            $consultas =  join_illness_medication_name_table($enferEvaluar[$i]);
             foreach ($consultas as $key) {
               $nombre =  utf8_encode($key['nombenf']);
               $imagen =  remove_junk($key['imgenf']);
               $origen = utf8_encode($key['origenenf']);
               $trata = utf8_encode( $key['tratamiento']);
         ?>
-        <div class="row">
+        <div class="row mt-3">
             <div class="blog-slider">
               <div class="blog-slider__wrp swiper-wrapper">
                 <div class="blog-slider__item swiper-slide">
@@ -203,7 +202,7 @@ $gradoCoincidencia = umbral_v2($resDiagnostico);
 
         <?php  
             }
-          
+          }
         }else{ ?>
           <div class="row mt-3">
             <div class="blog-slider">
@@ -243,8 +242,7 @@ $gradoCoincidencia = umbral_v2($resDiagnostico);
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2">MediCare.</h2>
-              <p>Universidad Autónoma de Querétaro.</p>
-              <p>Facultad de Informática.</p>
+              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
             </div>
           </div>
           <div class="col-md">

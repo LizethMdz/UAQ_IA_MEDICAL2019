@@ -44,7 +44,7 @@
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active"><a href="index.php" class="nav-link">Inicio</a></li>
-          <li class="nav-item"><a href="acerca.php" class="nav-link">Acerca de</a></li>
+          
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle"  id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Diagnósticos</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
@@ -53,6 +53,7 @@
                 <a class="dropdown-item" href="diag-especifico.php">Diagnóstico Específico</a>
               </div>
           </li>
+          <li class="nav-item"><a href="acerca.php" class="nav-link">Acerca de</a></li>
           <li class="nav-item"><a href="autores.php" class="nav-link">Autores</a></li>
           <?php  if ($session->isUserLoggedIn(true)): ?>  
           <li class="nav-item dropdown">
@@ -60,6 +61,7 @@
              Dra. <?php echo utf8_encode(ucfirst($user['nom_medico'])); ?>
             </a>
               <div class="dropdown-menu" aria-labelledby="user-data">
+              <a class="dropdown-item" href="perfil.php">Mi perfil</a>
                 <a class="dropdown-item" href="logout.php">Cerrrar Sesión</a>
               </div>
           </li>
@@ -91,10 +93,11 @@
       <div class="container">
         <div class="row justify-content-center mb-5 pb-5">
           <div class="col-md-7 text-center heading-section ftco-animate">
-            <span class="subheading">DESARROLLADORES</span>
-            <h2 class="mb-4">Brindando mejores servicios</h2>
+            <span class="subheading">DESARROLLADORAS</span>
+            <h2 class="mb-4">Materia: Inteligencia Artificial</h2>
             <!-- NOTE Cambiar textos -->
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
+            <p>Profesora: Dra. Sandra Luz Canchola Magdaleno</p>
+            <p>Mayo 2019</p>
           </div>
         </div>
         <div class="row ftco-animate">
@@ -102,13 +105,14 @@
             <div class="carousel-testimony owl-carousel ftco-owl">
               <div class="item text-center">
                 <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-4" style="background-image: url(images/person_1.jpg)">
+                  <!-- <div class="user-img mb-4" style="background-image: url(images/person_1.jpg)">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-desktop"></i>
                     </span>
-                  </div>
+                  </div> -->
                   <div class="text">
-                    <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                    <p class="mb-5">Estudiante de Ingeniería en Software.</p>
+                    <p class="my-2">Espediente: 228378</p>
                     <p class="name">Lizeth  Ailet Mendoza Trejo</p>
                     <span class="position">Back-end Developer</span>
                   </div>
@@ -116,13 +120,14 @@
               </div>
               <div class="item text-center">
                 <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-4" style="background-image: url(images/person_2.jpg)">
+                  <!-- <div class="user-img mb-4" style="background-image: url(images/person_2.jpg)">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-desktop"></i>
                     </span>
-                  </div>
+                  </div> -->
                   <div class="text">
-                    <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                    <p class="mb-5">Estudiante de Ingeniería en Software.</p>
+                    <p class="my-2">Espediente: 256910</p>
                     <p class="name">Hannia Melissa Flores Ornelas</p>
                     <span class="position">Interface Designer</span>
                   </div>
@@ -130,14 +135,16 @@
               </div>
               <div class="item text-center">
                 <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-4" style="background-image: url(images/person_3.jpg)">
+                  <!-- <div class="user-img mb-4" style="background-image: url(images/person_3.jpg)">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-desktop"></i>
                     </span>
-                  </div>
+                  </div> -->
                   <div class="text">
-                    <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                  <p class="mb-5">Estudiante de Ingeniería en Software.</p>
+                  <p class="my-2">Espediente: 256909</p>
                     <p class="name">Ana Laura Peña Hernández</p>
+
                     <span class="position">UI Designer</span>
                   </div>
                 </div>
@@ -159,7 +166,8 @@
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2">MediCare.</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+              <p>Universidad Autónoma de Querétaro.</p>
+              <p>Facultad de Informática.</p>
             </div>
           </div>
           <div class="col-md">

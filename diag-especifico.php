@@ -60,7 +60,7 @@
         <div class="collapse navbar-collapse" id="ftco-nav">
           <ul class="navbar-nav ml-auto">
           <li class="nav-item active"><a href="home.php" class="nav-link">Inicio</a></li>
-          <li class="nav-item"><a href="acerca.php" class="nav-link">Acerca de</a></li>
+          
             <li class="nav-item dropdown active">
               <a class="nav-link dropdown-toggle" href="portfolio.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Diagnóstico</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
@@ -69,6 +69,7 @@
                   <a class="dropdown-item" href="diag-especifico.php">Diagnóstico Específico</a>
                 </div>
             </li>
+            <li class="nav-item"><a href="acerca.php" class="nav-link">Acerca de</a></li>
             <li class="nav-item"><a href="autores.php" class="nav-link">Autores</a></li>
           <!-- <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li> -->
           <!-- <li class="nav-item cta"><a href="contact.html" class="nav-link"><span>Empieza ya</span></a></li> -->
@@ -78,6 +79,7 @@
              Dra. <?php echo utf8_encode(ucfirst($user['nom_medico'])); ?>
             </a>
               <div class="dropdown-menu" aria-labelledby="user-data">
+              <a class="dropdown-item" href="perfil.php">Mi perfil</a>
                 <a class="dropdown-item" href="logout.php">Cerrrar Sesión</a>
               </div>
           </li>
@@ -109,33 +111,36 @@
         <div class="row justify-content-center mb-2 pb-5">
           <div class="col-md-4 text-center heading-section ftco-animate">
             <span class="subheading">EVALUACIÓN</span>
-            <h2 class="mb-4">Selecciona los sintomás que padezcas</h2>
-            <p>Selecciona como te sientes</p>
+            <h2 class="mb-4">Selecciona los sintomás del paciente</h2>
+            
           </div>
         </div>
 
         <form method="POST" action="evaluacion.php">
         <div class="row">
-            <div class="col-md-3 pr-md-4 ">
-                <ul class="list-group list-group-flush">
+            <!-- <div class="col-md-3 pr-md-4 ">
+                <ul class="list-group-flush">
                     <li class="list-group-item active text-center">¿Qué sintomas presentas? </li>
-                    <?php foreach ($sintomas2 as $sintoma2): ?>
+                    <?php //foreach ($sintomas2 as $sintoma2): ?>
                       <li class="list-group-item d-flex justify-content-between align-items-center sinto mt-3">
-                        <p><?php echo remove_junk(utf8_encode($sintoma2['nombsintoma'])); ?></p>
+                        <p><?php //echo remove_junk(utf8_encode($sintoma2['nombsintoma'])); ?></p> 
                       </li>
-                      <?php endforeach; ?>
+                      <?php //endforeach; ?>
                 </ul>
-            </div>
+            </div> -->
 
-              <div class="col-md-6 pr-md-5">
+              <div class="col-md-8 pr-md-5">
                   <ul class="list-group list-group-flush">
                       <li class="list-group-item active text-center">¿Cómo te sientes? </li>
 
                       <div class="row">
-                        <?php foreach ($sintomas as $sintoma): ?>
+                       
                       <ul class="list-group-flush">
+                        
+                      <?php foreach ($sintomas2 as $sintoma2): ?>
                           <li class="list-group-item range-btn  align-items-center mt-2">
                           <div class="col-md-12">
+                                <p><?php echo remove_junk(utf8_encode($sintoma2['nombsintoma'])); ?></p> 
                               <img class="img-feelings2" src="https://image.flaticon.com/icons/svg/1742/1742336.svg" alt="">
                               <img class="img-feelings2" src="https://image.flaticon.com/icons/svg/1742/1742375.svg" alt="">
                               <img class="img-feelings2" src="https://image.flaticon.com/icons/svg/1742/1742464.svg" alt="">
@@ -143,11 +148,11 @@
                               
                             </div>
                                 <label for="range" class=" mt-1 text-center">
-                                      <input type="range" name="valSintomas[]" id="range2" min="0" max="1" step="0.01" value="0" onchange="cambiar(this.value, <?php echo $sintoma['id_enf_sint'];?>)" oninput="cambiar(this.value, <?php echo $sintoma['id_enf_sint'];?>)" required><h4 class="text-center txt-range"  id="<?php echo $sintoma['id_enf_sint'];?>">0%</h4>
+                                      <input type="range" name="valSintomas[]" id="range2" min="0" max="1" step="0.01" value="0" onchange="cambiar(this.value, <?php echo $sintoma2['id_enf_sint'];?>)" oninput="cambiar(this.value, <?php echo $sintoma2['id_enf_sint'];?>)" required><h4 class="text-center txt-range"  id="<?php echo $sintoma2['id_enf_sint'];?>">0%</h4>
                                 </label>
                           </li>
-                      </ul>                
                       <?php endforeach; ?>
+                      </ul>                
                         </div>
 
                     </ul>
@@ -155,7 +160,7 @@
                   </div>
 
           <!--end  .section radio buttons-->
-          <div class="col-md-3 pr-md-2">
+          <div class="col-md-4 pr-md-2">
 
             <div class="list-group">
                   <a href="#" class="list-group-item list-group-item-action active">
@@ -165,7 +170,7 @@
 
                   <p href="#" class="list-group-item list-group-item-action">                  
                     <label class="form-check-label" for="choice1-<?php echo $enfermedad['idenfermedades'];?>">
-                  <?php echo $enfermedad['nombenf'];?>
+                  <?php echo utf8_encode($enfermedad['nombenf']);?>
                   </label>
                   <input type="checkbox" class="form-check-input ml-2" id="choice1-<?php echo $enfermedad['idenfermedades'];?>" name="disease[]" value="<?php echo $enfermedad['nombenf'];?>" multiple="multiple">
 
@@ -199,7 +204,8 @@
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2">MediCare.</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+              <p>Universidad Autónoma de Querétaro.</p>
+              <p>Facultad de Informática.</p>
             </div>
           </div>
           <div class="col-md">
