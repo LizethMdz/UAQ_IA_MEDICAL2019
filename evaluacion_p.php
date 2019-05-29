@@ -167,7 +167,7 @@ $resEnfermedad = umbral($resDiagnostico);
         <div class="col-md-6 text-center heading-section ftco-animate">
             <span class="subheading">Enfermedades Gastrointestinales</span>
             <h2 class="mb-2">Tus resultados fueron</h2>
-            <p>La mejor mejor coincidencia ....</p>
+            <p>La mejor mejor coincidencia ....<?php print($resDiagnostico[0]); ?></p>
             <img src="https://image.flaticon.com/icons/svg/1420/1420243.svg" width="100" height="100">
           </div>
         </div>
@@ -194,7 +194,7 @@ $resEnfermedad = umbral($resDiagnostico);
                     <div class="blog-slider__title"><?php echo $nombre; ?></div>
                     <div class="blog-slider__text">Descripción:   <?php echo $origen; ?></div>
                     <div class="blog-slider__text">Tratamiento:   <?php echo $trata; ?></div>
-                    <a href="#" class="blog-slider__button">VOLVER AL INICIO</a>
+                    <a href="diag-general.php" class="blog-slider__button">VOLVER AL INICIO</a>
                   </div>
                 </div>
               
@@ -222,9 +222,9 @@ $resEnfermedad = umbral($resDiagnostico);
                   <div class="blog-slider__text"><?php 
                    echo "Lo siento :/ El grado de confiabilidad entre los sintomas elegidos y los valores
                    de las enfermedades que fueron comparados no fue suficiente como
-                   para decir que posees alguna de ellas."; ?></div>
+                   para decir que el paciente padece alguna de ellas."; ?></div>
 
-                  <a href="#" class="blog-slider__button">VOLVER AL INICIO</a>
+                  <a href="diag-general.php" class="blog-slider__button">VOLVER AL INICIO</a>
                 </div>
               </div>
             

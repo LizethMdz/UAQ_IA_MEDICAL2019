@@ -13,8 +13,8 @@
     define("SINTOMAS", 38); ///9
     define( "PORCENTAJE" , 100);
     define('CANT_COL_T_ENFER', 4);
-    define('UMBRAL', 2); 
-    define('UMB', 3); 
+    define('UMBRAL', 1.5); 
+    define('UMB', 2.5); 
 
      /**Define Enfermedades */
     define('SALMONELOSIS', 'Salmonelosis');
