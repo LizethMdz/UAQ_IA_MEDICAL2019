@@ -67,7 +67,7 @@
               </div>
           </li>
           <?php endif;?>
-             <!-- <li class="nav-item cta"><a href="#diagnosticos" class="nav-link"><span>Empieza</span></a></li> -->
+            
         </ul>
       </div>
     </div>
@@ -165,13 +165,6 @@
                 está padeciendo una enfermedad, mediante un diagnóstico rápido.
             </h2>
 
-            <!-- NOTE  Revisar el la descripción -->
-            <!-- <p>
-                A continuación realizaremos una revisión de las características de estas enfermedades
-                 y trastornos, indicando las pautas de su tratamiento dietético. También mostraremos 
-                 las principales recomendaciones que 
-                puede hacer el farmacéutico comunitario para ayudar a prevenir y tratar estas dolencias.
-            </p> -->
           </div>
         </div>
         <div class="row"  id="diagnosticos">
@@ -287,7 +280,6 @@
   <script src="js/aos.js"></script>
   <script src="js/jquery.animateNumber.min.js"></script>
   <script src="js/bootstrap-datepicker.js"></script>
-  <!-- <script src="js/jquery.timepicker.min.js"></script> -->
   <script src="js/particles.min.js"></script>
   <script src="js/particle.js"></script>
   <script src="js/scrollax.min.js"></script>
