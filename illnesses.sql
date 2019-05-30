@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-05-2019 a las 15:05:48
+-- Tiempo de generación: 31-05-2019 a las 00:42:27
 -- Versión del servidor: 10.1.35-MariaDB
 -- Versión de PHP: 7.2.9
 
@@ -44,8 +44,8 @@ INSERT INTO `enfermedades` (`idenfermedades`, `nombenf`, `origenenf`, `imgenf`, 
 (1, 'Salmonelosis', 'Está causada por bacterias que pueden desencadenar una salmonelosis en el ser humano (salmonella enteritis), una enfermedad con diarrea infecciosa que está limitada al tracto intestinal (enteritis, infección del intestino).', 'salmonelosis.jpg', 1),
 (2, 'Apendicitis', 'Es la infección bacteriana del apéndice vermiforme ( apéndice con forma de gusano) situado en el extremo inferior del colon derecho, muy cerca de la unión con el intestino delgado.', 'apendicitis.jpeg', 2),
 (3, 'Cancer Gastrico', 'Es un crecimiento descontrolado de las células que cubren la superficie interna del estómago. Estas células pueden invadir el resto de la pared gástrica y luego diseminarse a otros órganos o sistemas (ganglios linfáticos, hígado, peritoneo o pulmón).', 'cancerg.jpg', 3),
-(4, 'Parasitosis', 'Están involucrados los problemas digestivos: mal aliento, apetito inestable, constipación, diarreas, acidez, cuadros apendiculares o vesiculares, gastroenteritis, etc. Las toxinas parasitarias provocan un bloqueo de la absorción de los alimentos a nivel de la mucosa intestinal, que genera, en muchos casos, la delgadez de muchos parasitados. Un hecho curioso que presentan casi todos los parasitados es la intolerancia alimenticia denominada discontinua: “Hoy sí, mañana no”\r\n', 'parasitosis.jpg', 4),
-(5, 'Diarrea', 'La diarrea no constituye una enfermedad en sí, sino el síntoma de una infección del tracto gastrointestinal por virus, bacterias o parásitos. Los agentes patógenos llegan al sistema digestivo por medio de alimentos o agua potable contaminados. Si la diarrea es la única molestia, suele ser inofensiva', 'diarrea.jpg', 5),
+(4, 'Parasitosis', 'Están involucrados los problemas digestivos: mal aliento, apetito inestable, constipación, diarreas, acidez, cuadros apendiculares o vesiculares, gastroenteritis, etc. Las toxinas parasitarias provocan un bloqueo de la absorción de los alimentos a nivel de la mucosa intestinal, que genera, en muchos casos, la delgadez de muchos parasitados. Un hecho curioso que presentan casi todos los parasitados es la intolerancia alimenticia denominada discontinua: Hoy sí, mañana no.\r\n', 'parasitosis.jpg', 4),
+(5, 'Diarrea', 'La diarrea no constituye una enfermedad en sí, sino el síntoma de una infección del tracto gastrointestinal por virus, bacterias o parásitos. Los agentes patógenos llegan al sistema digestivo por medio de alimentos o agua potable contaminados. Si la diarrea es la única molestia, suele ser inofensiva y se puede combatir con simples medidas como té o pan tostado.', 'diarrea.jpg', 5),
 (6, 'Dispepsia', 'Es un trastorno frecuente del estómago que se caracteriza principalmente por la presencia de molestias en la parte superior del abdomen. Suele manifestarse con pesadez, presión, ardor de estómago, gases, náuseas o vómitos.', 'dispepsia.jpg', 6),
 (7, 'Gastritis', 'Es una patología muy común, que se define como una inflamación de la mucosa gástrica. Se distingue una forma crónica y una forma aguda que puede cursar con o sin síntomas y cuya diferencia fundamental es el tiempo de duración del trastorno. Las gastritis se producen con mayor frecuencia en pacientes con edades avanzadas. Las causas pueden ser muy variadas.', 'gastritis.jpg', 7),
 (8, 'Gastroenteritis', 'Es una inflamación del tracto intestinal (estómago e intestino) que suele cursar con diarrea y vómitos. Suele estar provocada por una infección, la ingesta de un alimento en mal estado o incluso por el estrés. Es un problema muy común que afecta especialmente durante la infancia.', 'gastroenteritis.jpg', 8),
@@ -462,15 +462,18 @@ CREATE TABLE `medicos` (
   `username_medico` varchar(50) NOT NULL,
   `pass_medico` varchar(100) NOT NULL,
   `nom_medico` varchar(100) NOT NULL,
-  `status_medico` int(1) NOT NULL DEFAULT '1'
+  `status_medico` int(1) NOT NULL DEFAULT '1',
+  `tel_medico` varchar(10) NOT NULL,
+  `titulo_medico` varchar(30) NOT NULL,
+  `image_medico` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `medicos`
 --
 
-INSERT INTO `medicos` (`id_medico`, `username_medico`, `pass_medico`, `nom_medico`, `status_medico`) VALUES
-(1, 'letisosa', '123456', 'Leticia Sosa López', 1);
+INSERT INTO `medicos` (`id_medico`, `username_medico`, `pass_medico`, `nom_medico`, `status_medico`, `tel_medico`, `titulo_medico`, `image_medico`) VALUES
+(1, 'letisosa', '123456', 'Leticia Sosa Lopez Cabrera', 1, '4436977895', 'Medico General', 'yg4o4gy1.png');
 
 -- --------------------------------------------------------
 
