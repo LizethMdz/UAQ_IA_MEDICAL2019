@@ -8,7 +8,7 @@
 
      */
     define('DB_HOST', 'localhost');
-    define('DB_NAME', 'id9770957_illnesses');
+    define('DB_NAME', 'illnesses');
     define('DB_USER', 'root');
     define('DB_PASS', '');
 
