@@ -49,6 +49,7 @@ $interseccion_enf_arruser = interseccion_v2($a_div_patron, $sintomasPaciente);
 $interseccion_e_u_div = array_chunk($interseccion_enf_arruser, SINTOMAS + 1);
 
 
+
 // Obtener los grados de confiabilidad de cada enfermedad
 $a_grados = [];
 
